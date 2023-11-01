@@ -1,0 +1,37 @@
+import itertools
+import string
+import multiprocessing
+
+def brute_force(password, length):
+    for password_candidate in itertools.product(string.ascii_lowercase + string.digits, repeat=length):
+        if password == "".join(password_candidate):
+            return password_candidate
+    return None
+
+def parallel_brute_force(password, length, processes):
+    with multiprocessing.Pool(processes) as pool:
+        results = pool.map(brute_force, [password] * processes)
+        for result in results:
+            if result is not None:
+                return result
+    return None
+
+def guess_password_length(password):
+    for length in range(1, len(password) + 1):
+        if brute_force(password, length) is not None:
+            return length
+    return None
+
+def guess_password_complexity(password):
+    # Şifrenin karmaşıklığını tahmin etmek için bazı yöntemler uygulayın.
+    return 1
+
+def improved_brute_force(password):
+    length = guess_password_length(password)
+    complexity = guess_password_complexity(password)
+    return parallel_brute_force(password, length, complexity)
+
+if __name__ == "__main__":
+    password = "12345"
+    password_candidate = improved_brute_force(password)
+    print(password_candidate)
