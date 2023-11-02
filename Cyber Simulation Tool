@@ -4,31 +4,23 @@ import time
 
 def generate_random_ip():
     return ".".join([str(random.randint(0, 255)) for _ in range(4)])
-
 def generate_random_port():
     return random.randint(1, 65535)
-
 def simulate_attack(ip, port, attack_type):
     if attack_type == "tcp":
         # Simulate a TCP attack.
         requests.get("http://" + ip + ":" + str(port))
     elif attack_type == "udp":
-        # Simulate a UDP attack (Note: This is a simplified example, as UDP attacks are more complex).
         pass
     elif attack_type == "dos":
-        # Simulate a Denial of Service (DoS) attack.
         for _ in range(1000):
             requests.get("http://" + ip + ":" + str(port))
     elif attack_type == "sql_injection":
-        # Simulate a SQL injection attack (Note: This is a simplified example, as real SQL injections are more complex).
         pass
     elif attack_type == "cross_site_scripting":
-        # Simulate a cross-site scripting (XSS) attack (Note: This is a simplified example).
         pass
     elif attack_type == "brute_force":
-        # Simulate a brute force attack (Note: This is a simplified example).
         pass
-
 if __name__ == "__main__":
     for _ in range(100):
         ip = generate_random_ip()
